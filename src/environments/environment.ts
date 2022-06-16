@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  clientId: 'client_id'
+  clientId: 'api key'
 };
 
 /*

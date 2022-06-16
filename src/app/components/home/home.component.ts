@@ -1,3 +1,4 @@
+import { TokenService } from './../../services/token.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NgOneTapService } from 'ng-google-one-tap';
@@ -11,7 +12,8 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private onetap: NgOneTapService
+    private onetap: NgOneTapService,
+    private tokenService: TokenService
   ) { }
 
   ngOnInit(): void {
@@ -32,6 +34,8 @@ export class HomeComponent implements OnInit {
         });
         this.onetap.oneTapCredentialResponse.subscribe(res => { // After continue with one tap JWT credentials response.
             console.log(res.credential);
+            const token = res.credential;
+            this.tokenService.setToken(token);
             this.router.navigate(['/hello']);
         });
       

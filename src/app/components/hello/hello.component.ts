@@ -1,3 +1,5 @@
+import { Router } from '@angular/router';
+import { TokenService } from './../../services/token.service';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HelloComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+    private tokenService: TokenService,
+    private router: Router
+  ) { }
 
   ngOnInit(): void {
+  }
+
+  public logOut(): void {
+    this.tokenService.logOut();
+    this.router.navigate(['/home']);
   }
 
 }

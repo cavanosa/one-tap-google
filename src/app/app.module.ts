@@ -1,3 +1,4 @@
+import { ApiInterceptor } from './interceptors/api.interceptor';
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
@@ -9,6 +10,8 @@ import { HelloComponent } from './components/hello/hello.component';
 import { NgGoogleOneTapModule } from 'ng-google-one-tap';
 import { environment } from 'src/environments/environment';
 
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,6 +21,7 @@ import { environment } from 'src/environments/environment';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    HttpClientModule,
     NgGoogleOneTapModule.config(
       {  //Look options table for some more avaialbe options and config here.
           client_id: environment.clientId,
@@ -28,7 +32,9 @@ import { environment } from 'src/environments/environment';
           context: 'signup'
       })
   ],
-  providers: [],
+  providers: [
+    {provide: HTTP_INTERCEPTORS, useClass: ApiInterceptor, multi: true}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

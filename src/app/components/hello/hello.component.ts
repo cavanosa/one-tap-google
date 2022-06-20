@@ -23,13 +23,16 @@ export class HelloComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.helloService.getHello().subscribe( data => {
+    this.helloService.getHello().subscribe(data => {
       this.dto = new MessageDto(data.message, data.picture);
       console.log(this.dto);
     },
-    err => {
-      console.log(err);
-    });
+      err => {
+        console.log(err);
+        if (err.status === 401) {
+          this.logOut();
+        }
+      });
   }
 
   public logOut(): void {
